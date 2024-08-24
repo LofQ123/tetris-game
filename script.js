@@ -26,41 +26,101 @@ game = {
 
         let display = document.getElementById('display')
 
-        //Do not forget to delete
         for (let y = 19; y >= 0; y--) {
             for (let x = 0; x <= 9; x++) {
                 let cell = document.createElement('div');
                 cell.style["background-color"] = "transparent";
                 cell.id = `${y}-${x}`
-                cell.addEventListener("click", () => {game.debug.forceBlock(y, x, "[X]")})
+                for (let i = 1; i <= 4; i++) {
+                    let subcell = document.createElement('div');
+                    subcell.id = `${cell.id}-r1c${i}`;
+                    cell.appendChild(subcell);
+                }
+                for (let i = 1; i <= 4; i++) {
+                    let subcell = document.createElement('div');
+                    subcell.id = `${cell.id}-r2c${i}`;
+                    cell.appendChild(subcell);
+                }
+                for (let i = 1; i <= 4; i++) {
+                    let subcell = document.createElement('div');
+                    subcell.id = `${cell.id}-r3c${i}`;
+                    cell.appendChild(subcell);
+                }
+                for (let i = 1; i <= 4; i++) {
+                    let subcell = document.createElement('div');
+                    subcell.id = `${cell.id}-r4c${i}`;
+                    cell.appendChild(subcell);
+                }
+                
+                //cell.addEventListener("click", () => {game.debug.forceBlock(y, x, "[X]")})       //Do not forget to delete
                 display.appendChild(cell);
             }
         }
     },
 
     drawBoard() {
+        console.log(`calling`)
         for (let y = 0; y <= 19; y++) {
             for (let x = 0; x <= 9; x++) {
                 let line = `line${y}`
                 let cell = `${y}-${x}`
                 
-                if (game.board[`${line}`][`${cell}`].value === "[X]") {
-                    document.getElementById(`${cell}`).classList = "block";
-                    document.getElementById(`${cell}`).style["background-color"] = game.board[`${line}`][`${cell}`].color;
-                } else if (game.board[`${line}`][`${cell}`].value === "[?]") {
-                    document.getElementById(`${cell}`).classList = "block";
-                    document.getElementById(`${cell}`).style["background-color"] = game.board[`${line}`][`${cell}`].color;
-                } else if (game.board[`${line}`][`${cell}`].value === "[!]") {
-                    document.getElementById(`${cell}`).classList = "shadow";
-                    document.getElementById(`${cell}`).style["background-color"] = "transparent";
-                } else if (game.board[`${line}`][`${cell}`].value === "[*]") {
-                    document.getElementById(`${cell}`).classList = "block"
-                    document.getElementById(`${cell}`).style["background-color"] = game.figure.colors[8];
-                } else {
-                    document.getElementById(`${cell}`).classList = "empty"
-                    document.getElementById(`${cell}`).style["background-color"] = "transparent";
-                }
+                if(game.board[`${line}`][`${cell}`].change === "instant") {
+                    if (game.board[`${line}`][`${cell}`].value === "[X]" || game.board[`${line}`][`${cell}`].value === "[?]") {
+                        game.drawBlock(cell, "instant")
+                        document.getElementById(`${cell}`).style["background-color"] = game.board[`${line}`][`${cell}`].color;
+                    } else if (game.board[`${line}`][`${cell}`].value === "[!]") {
+                        document.getElementById(`${cell}`).classList = "shadow";
+                        document.getElementById(`${cell}`).style["background-color"] = "transparent";
+                    } else if (game.board[`${line}`][`${cell}`].value === "[*]") {
+                        document.getElementById(`${cell}`).classList = "block"
+                        document.getElementById(`${cell}`).style["background-color"] = game.figure.colors[8];
+                    } else {
+                        document.getElementById(`${cell}`).classList = ""
+                        document.getElementById(`${cell}`).style["background-color"] = "transparent";
+                    }
+                } 
             }        
+        }
+    },
+
+    drawBlock(cell, type) {
+        let r1c1 = document.getElementById(`${cell}-r1c1`)
+        let r1c2 = document.getElementById(`${cell}-r1c2`)
+        let r1c3 = document.getElementById(`${cell}-r1c3`)
+        let r1c4 = document.getElementById(`${cell}-r1c4`)
+        let r2c1 = document.getElementById(`${cell}-r2c1`)
+        let r2c2 = document.getElementById(`${cell}-r2c2`)
+        let r2c3 = document.getElementById(`${cell}-r2c3`)
+        let r2c4 = document.getElementById(`${cell}-r2c4`)
+        let r3c1 = document.getElementById(`${cell}-r3c1`)
+        let r3c2 = document.getElementById(`${cell}-r3c2`)
+        let r3c3 = document.getElementById(`${cell}-r3c3`)
+        let r3c4 = document.getElementById(`${cell}-r3c4`)
+        let r4c1 = document.getElementById(`${cell}-r4c1`)
+        let r4c2 = document.getElementById(`${cell}-r4c2`)
+        let r4c3 = document.getElementById(`${cell}-r4c3`)
+        let r4c4 = document.getElementById(`${cell}-r4c4`)
+
+        if (type === "instant") {
+            r1c1.classList = "top-left";
+            r1c2.classList = "top";
+            r1c3.classList = "top";
+            r1c4.classList = "top-right";
+            r2c1.classList = "left";
+            r2c2.classList = "";
+            r2c3.classList = "";
+            r2c4.classList = "right";
+            r3c1.classList = "left";
+            r3c2.classList = "";
+            r3c3.classList = "";
+            r3c4.classList = "right";
+            r4c1.classList = "bottom-left";
+            r4c2.classList = "bottom";
+            r4c3.classList = "bottom";
+            r4c4.classList = "bottom-right";
+
+            r1c1.style["background-color"] = game.board[`${line}`][`${cell}`].color;
         }
     },
 
@@ -424,7 +484,6 @@ game = {
                     game.figure.body[4].y++;
                     game.stat.updateFiguresStat(type)
                     game.figure.updateFigurePosition();
-                    game.drawBoard();
                     game.stat.updateDisplayedStat();
                     game.gameOver();
                     return
@@ -432,10 +491,9 @@ game = {
             }
 
             game.stat.updateFiguresStat(type)
-            game.figure.updateFigurePosition();
+            game.figure.updateFigurePosition("instant");
             game.figure.getNextFigure();
             game.stat.updateDisplayedStat();
-            game.drawBoard();
         },
 
         resetCells() {
@@ -449,8 +507,7 @@ game = {
             };
         },
  
-        updateFigurePosition(str) {
-            console.log(str)
+        updateFigurePosition(change) {
             game.figure.resetCells();
  
             game.figure.placeShadow();
@@ -471,7 +528,7 @@ game = {
                     if (game.board[line][cellName]){
                         game.board[line][cellName].value = "[?]"
                         game.board[line][cellName].color = game.figure.colors[`${game.figure.color}`] 
-                        game.board[line][cellName].change = ""
+                        game.board[line][cellName].change = change
                     }
                 }
             };
@@ -1731,8 +1788,7 @@ game = {
         game.generateBoard();
         game.figure.getNextFigure();
         game.figure.drawNextFigure(game.figure.nextFigure)
-        game.drawBoard();
-        game.clock.start();
+        //game.clock.start();
     },
 
     randomizer: {
@@ -1802,3 +1858,4 @@ document.body.addEventListener("keydown", (ev) => {
 
 game.selectDifficulty(1);
 game.newGame();
+

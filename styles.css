@@ -31,14 +31,15 @@ body {
     display: grid;
     grid-template-rows: repeat(20, 1fr);
     grid-template-columns: repeat(10, 1fr);
-    padding: 4px;
-    gap: 5px;
+    padding: 5px;
+    gap: 0px;
     background-color: #E7E0E0;
 }
 
 #display div {
     width: 100%;
     height: 100%;
+    
 }
 
 #display .color0 {
@@ -55,7 +56,7 @@ body {
 
 #display .block {
     background-color: red; 
-    outline: 5px solid black;
+    /* outline: 5px solid black; */
 }
 
 #display .empty {
@@ -64,4 +65,57 @@ body {
 
 #display .shadow {
     outline: 2px dotted black;
+}
+
+#display>div {
+    display: grid;
+    grid-template-rows: repeat (4,1fr);
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;;
+}
+
+#display>div>div {
+    width: 100%;
+    height: 100%;
+}
+
+.top-left {
+    border-top: 4px solid black;
+    border-left: 4px solid black;
+}
+
+.top {
+    border-top: 4px solid black;
+}
+
+.top-right {
+    border-top: 4px solid black;
+    border-right: 4px solid black;
+}
+
+.left {
+    border-left: 4px solid black;
+}
+
+.right {
+    border-right: 4px solid black;
+}
+
+.bottom-left {
+    border-left: 4px solid black;
+    border-bottom: 4px solid black;
+}
+
+.bottom {
+    border-bottom: 4px solid black;
+}
+
+.bottom-right {
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+}
+
+.middle {
+    border: none;
 }

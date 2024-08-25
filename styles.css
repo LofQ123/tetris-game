@@ -8,7 +8,8 @@
     --color2: #3F5364;
     --color3: #a2afb9;
     --color4: #2D3B4E;
-    --width1: calc(80vh / 2);
+    --width1: calc(75vh / 2);
+    --height1: 75vh;
 }
 
 body {
@@ -19,35 +20,34 @@ body {
     font-family: "VT323", monospace;
     font-weight: 400;
     font-style: normal;
+    display: flex;
+    justify-content: center;
 }
 
 .main_container {
     height: 100vh;
-    width: 80vw;
-    display: grid;
-    grid-template-columns: 1fr 400px 1fr;
+    width: 25vw;
+    min-width: calc(var(--width1) + 30px);
+    display: flex;
     align-items: center;
-    justify-content: space-around;
-    margin: auto;
+    justify-content: center;
     background-color: var(--color2);
     border-left: 5px solid #161E27;
-    border-right: 5px solid #161E27
-}
-
-.left_container {
-    height: 100%;
-    width: 100%;
+    border-right: 5px solid #161E27;
+    gap: 1.5vw;
+    padding: 0 0.1vw;
+    position: absolute;
 }
 
 .middle_container {
-    width: calc(var(--width1) + 25px);
+    width: calc(var(--width1));
     height: 100%;
-    outline: 1px solid green;
     flex-direction: column;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 0.77vh;
+    padding: 20px;
 }
 
 .top_container {
@@ -57,11 +57,11 @@ body {
     grid-template-columns: repeat(27, 1fr);
     grid-template-rows: repeat(4, 1fr);
     justify-content: space-between;
-    padding: 6px;
+    padding: 1vh 0;
     line-height: 4vh;
-    font-size: calc(var(--width1) / 13);
+    font-size: calc(var(--width1) / 13.3);
     font-weight: 1000;
-    gap: 1.2vh
+    gap: 1.2vh;
 }
 
 .lines_container {
@@ -76,7 +76,7 @@ body {
 }
 
 .lines_container p {
-    padding-left: 1px
+    padding-left: 3px
 }
 
 .score_container {
@@ -110,7 +110,7 @@ body {
 }
 
 .lvl_container p {
-    padding-left: 2px
+    padding-left: 3px
 }
 
 .top-score_container {
@@ -159,6 +159,8 @@ body {
     outline: 2px solid var(--color1);
     border-radius: 2px;
 }
+
+/* Blocks for next figure display */
 
 .type1 {
     height: calc((9vh / 4) * 2);
@@ -284,18 +286,9 @@ body {
     background-color: #3A75AD;
 }
 
-
-
-
-
-
-
-
-
-
 #display {
     width: var(--width1);
-    height: 80vh;
+    height: var(--height1);
     outline: 4px solid var(--color1);
     border-radius: 5px;
     display: grid;
@@ -321,20 +314,150 @@ body {
     border-radius: 2px;;
 }
 
-.right_container {
+.bottom_container {
+    height: 11vh;
+    width: 100%;
+    display: flex;
+    gap: 3%;
+    padding-bottom: 1.3vh;
+    padding-top: 0.7vh
+}
+
+.button {
+    height: 100%;
+    width: 100%;
+    outline: 3px solid var(--color1);
+    border-radius: 5px;
+    background-color: var(--color4);
+    color: var(--color3);
+    display: flex;
+    align-items: center;
+}
+
+.button svg {
+    fill: var(--color3);
+    height: 100%;
+    width: 100%;
+
+}
+
+#button_pause {
+    position: absolute;
+    height: calc(var(--height1) / 18);
+    width: calc(var(--height1) / 18);
+    top: 13%;
+    right: 6%;
+    outline: 3px solid var(--color2);
+    border-radius: 50%;
+}
+
+#button_pause:hover {
+    outline-color: white;
+}
+
+#button_pause svg {
+    fill: var(--color2);
+    height: 100%;
+    width: 100%;
+}
+
+#button_pause svg:hover {
+    fill: white;
+}
+
+.button svg:hover {
+    fill: white;
+}
+
+.button:hover {
+    outline-color: white;
+}
+
+.shadowed {
+    background-color: rgba(0, 0, 0, 0.699);
+}
+
+#pause_menu {
+    position: absolute;
     width: 100%;
     height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#statistic {
+#pause_menu p {
+    color: var(--color3)
+}
+
+.title {
+    font-size: 5vh;
+}
+
+.options {
+    width: fit-content;
+    margin-top: 2vh;
+    font-size: 4vh;
     display: flex;
     flex-direction: column;
+    gap: 1.3vh;
+    text-align: center;
 }
 
-#statistic div {
+.options p {
+    width: fit-content;
+    margin: auto;
+}
+
+.statistic {
+    margin-top: 3vh;
+    height: 40vh;
+    width: 70%;
+    font-size: 3vh;
+    text-align: center;
+}
+
+.statistic .container {
     display: flex;
+    flex-direction: column;
+    gap: 1vh;
 }
 
-#statistic p {
-    font-size: 2rem;
+.line {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+}
+
+.line>div {
+    display: flex;
+    justify-content: center;
+}
+
+.dash {
+    font-size: 3vh;
+    color: var(--color3)
+}
+
+.statistic>p {
+    margin-bottom: 2vh;
+}
+
+#countdown {
+    width: 100%;
+    position: absolute;
+    top: 30vh;
+    display: none;
+    justify-content: center;
+}
+
+#countdown_number{
+    font-size: 10vh;
+    color: var(--color3);
+    text-align: center;
+}
+
+#button_unpause:hover {
+    color: white;
+    cursor: pointer;
 }

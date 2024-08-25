@@ -11,9 +11,8 @@
     <script src="script.js" defer></script>
     <title>Document</title>
 </head>
-<body>
+<body>                
     <div class="main_container">
-        <div class="left_container"></div>
         <div class="middle_container">
             <div class="top_container">
                 <div class="lvl_container">
@@ -46,9 +45,136 @@
             </div>
             <div id="display">
             </div>
+            <div class="bottom_container">
+                <div class="button" id="button_left">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>arrow-left-bold</title><path d="M20,9V15H12V19.84L4.16,12L12,4.16V9H20Z" /></svg>
+                </div>
+                <div class="button" id="button_down">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-down</title><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
+                </div>
+                <div class="button" id="button_rotate">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>rotate-right-variant</title><path d="M10,4V1L14,5L10,9V6A6,6 0 0,0 4,12L4.08,13H2.06L2,12A8,8 0 0,1 10,4M17,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H17A2,2 0 0,1 15,20V4A2,2 0 0,1 17,2M4,15H13V22H4A2,2 0 0,1 2,20V17A2,2 0 0,1 4,15Z" /></svg>
+
+                </div>
+                <div class="button" id="button_drop">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-triple-down</title><path d="M7.41,14.58L12,19.17L16.59,14.58L18,16L12,22L6,16L7.41,14.58M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58M7.41,2.58L12,7.17L16.59,2.58L18,4L12,10L6,4L7.41,2.58Z" /></svg>
+                </div>
+                <div class="button" id="button_right">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>arrow-right-bold</title><path d="M4,15V9H12V4.16L19.84,12L12,19.84V15H4Z" /></svg>
+                </div>
+            </div>
         </div>
-        
-        <div class="right_container"></div>
+        <div id="button_pause">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pause</title><path d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>
         </div>
+        <div id="pause_menu" class="shadowed">
+            <div class="title">
+                <p>GAME PAUSED</p>
+            </div>
+            <div class="options">
+                <div class="option">
+                    <p id="button_unpause">Resume</p>
+                </div>
+                <div class="option">
+                    <p id="button_quit">Show controls</p>
+                </div>
+                <div class="option">
+                    <p id="button_quit">Quit to main menu</p>
+                </div>
+            </div>
+            <div class="statistic">
+                <p>Statictic:</p>
+                <div class="container">
+                    <div class="line">
+                        <div>
+                            <div class="figure type1">
+                                <div class="block one"></div>
+                                <div class="block two"></div>
+                                <div class="block three"></div>
+                                <div class="block four"></div>
+                            </div>
+                        </div>
+                        <p class="dash">-</p>
+                        <p id="type1-counter">0</p>
+                    </div>
+                    <div class="line">
+                        <div>
+                            <div class="figure type2">
+                                <div class="block one"></div>
+                                <div class="block two"></div>
+                                <div class="block three"></div>
+                                <div class="block four"></div>
+                            </div>
+                        </div>
+                        <p class="dash">-</p>
+                        <p id="type2-counter">0</p>
+                    </div>
+                    <div class="line">
+                        <div>
+                            <div class="figure type3">
+                                <div class="block one"></div>
+                                <div class="block two"></div>
+                                <div class="block three"></div>
+                                <div class="block four"></div>
+                            </div>
+                        </div>
+                        <p class="dash">-</p>
+                        <p id="type3-counter">0</p>
+                    </div>
+                    <div class="line">
+                        <div>
+                            <div class="figure type4">
+                                <div class="block one"></div>
+                                <div class="block two"></div>
+                                <div class="block three"></div>
+                                <div class="block four"></div>
+                            </div>
+                        </div>
+                        <p class="dash">-</p>
+                        <p id="type4-counter">0</p>
+                    </div>
+                    <div class="line">
+                        <div>
+                            <div class="figure type5">
+                                <div class="block one"></div>
+                                <div class="block two"></div>
+                                <div class="block three"></div>
+                                <div class="block four"></div>
+                            </div>
+                        </div>
+                        <p class="dash">-</p>
+                        <p id="type5-counter">0</p>
+                    </div>
+                    <div class="line">
+                        <div>
+                            <div class="figure type6">
+                                <div class="block one"></div>
+                                <div class="block two"></div>
+                                <div class="block three"></div>
+                                <div class="block four"></div>
+                            </div>
+                        </div>
+                        <p class="dash">-</p>
+                        <p id="type6-counter">0</p>
+                    </div>
+                    <div class="line">
+                        <div>
+                            <div class="figure type7">
+                                <div class="block one"></div>
+                                <div class="block two"></div>
+                                <div class="block three"></div>
+                                <div class="block four"></div>
+                            </div>
+                        </div>
+                        <p class="dash">-</p>
+                        <p id="type7-counter">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="countdown" class="shadowed">
+            <p id="countdown_number"></p>
+        </div>
+    </div>
 </body>
 </html>

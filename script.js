@@ -1,4 +1,6 @@
 game = {
+    language: "en",
+
     board: {    
     },
 
@@ -642,6 +644,7 @@ game = {
         slideToCell(column){
             function checkIfAlreadyThere() {
                 let alreadyThere = false;
+                
                 for (block in game.figure.body) {
                     if (game.figure.body[block].x === column) {
                         alreadyThere = true;
@@ -658,24 +661,6 @@ game = {
                     } else direction = "right"
                 }
                 return direction;
-            }
-
-            function slideLeft() {
-                if (game.figure.canMoveLeft()) {
-                    setTimeout(() => {
-                        game.figure.moveLeft();
-                        slideLeft();
-                    }, 5 )
-                }
-            }
-
-            function slideRight() {
-                if (game.figure.canMoveRight()) {
-                    setTimeout(() => {
-                        game.figure.moveRight();
-                        slideRight();
-                    }, 5 )
-                }
             }
 
             if (!checkIfAlreadyThere()) {
@@ -1708,42 +1693,55 @@ game = {
             displayScore.innerText = String(game.stat.score).padStart(6, "0");
             displayTopScore.innerText = String(game.stat.topScore).padStart(6, "0");
             
-            /*
             //update displayed figures stat
             let type1Counter = document.getElementById("type1-counter");
-            let type1Absent = document.getElementById("type1-absent");
             let type2Counter = document.getElementById("type2-counter");
-            let type2Absent = document.getElementById("type2-absent");
             let type3Counter = document.getElementById("type3-counter");
-            let type3Absent = document.getElementById("type3-absent");
             let type4Counter = document.getElementById("type4-counter");
-            let type4Absent = document.getElementById("type4-absent");
             let type5Counter = document.getElementById("type5-counter");
-            let type5Absent = document.getElementById("type5-absent");
             let type6Counter = document.getElementById("type6-counter");
-            let type6Absent = document.getElementById("type6-absent");
             let type7Counter = document.getElementById("type7-counter");
-            let type7Absent = document.getElementById("type7-absent");
 
             type1Counter.innerText = game.stat.figures.type1.timesSpawned;
-            type1Absent.innerText = game.stat.figures.type1.absent;
             type2Counter.innerText = game.stat.figures.type2.timesSpawned;
-            type2Absent.innerText = game.stat.figures.type2.absent;
             type3Counter.innerText = game.stat.figures.type3.timesSpawned;
-            type3Absent.innerText = game.stat.figures.type3.absent;
             type4Counter.innerText = game.stat.figures.type4.timesSpawned;
-            type4Absent.innerText = game.stat.figures.type4.absent;
             type5Counter.innerText = game.stat.figures.type5.timesSpawned;
-            type5Absent.innerText = game.stat.figures.type5.absent;
             type6Counter.innerText = game.stat.figures.type6.timesSpawned;
-            type6Absent.innerText = game.stat.figures.type6.absent;
             type7Counter.innerText = game.stat.figures.type7.timesSpawned;
-            type7Absent.innerText = game.stat.figures.type7.absent; */
         },
     },
     difficulty: "",
 
     status: 0,
+
+    pause() {
+        document.getElementById("pause_menu").style.display = "flex";
+        game.clock.stop();
+    },
+
+    unpause() {
+        document.getElementById("pause_menu").style.display = "none";
+        document.getElementById("countdown").style.display = "flex";
+        document.getElementById("countdown_number").innerText = "3";
+
+        setTimeout(() => {
+            document.getElementById("countdown_number").innerText = "2";
+        }, 1000);
+
+        setTimeout(() => {
+            document.getElementById("countdown_number").innerText = "1";
+        }, 2000);
+
+        setTimeout(() => {
+            document.getElementById("countdown").style.display = "none";
+            game.clock.start();
+        }, 3000)
+    },
+
+    pauseShowControls() {
+
+    },
 
     gameOver() {
         game.clock.stop();
@@ -1839,5 +1837,14 @@ document.body.addEventListener("keydown", (ev) => {
     }
 })
 
+document.getElementById("button_pause").addEventListener("click", () => {game.pause()});
+document.getElementById("button_left").addEventListener("click", () => {game.figure.moveLeft()});
+document.getElementById("button_down").addEventListener("click", () => {game.figure.moveDown()});
+document.getElementById("button_rotate").addEventListener("click", () => {game.figure.rotate()});
+document.getElementById("button_drop").addEventListener("click", () => {game.figure.dropDown()});
+document.getElementById("button_right").addEventListener("click", () => {game.figure.moveRight()});
+document.getElementById("button_unpause").addEventListener("click", () => {game.unpause()});
+
 game.selectDifficulty(1);
 game.newGame();
+game.pause();

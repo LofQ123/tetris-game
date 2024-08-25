@@ -3,79 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
     <script src="script.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <div id="statistic">
-        <div>
-            <p>Lines cleared:</p>
-            <p id="lines">0</p>
+    <div class="main_container">
+        <div class="left_container"></div>
+        <div class="middle_container">
+            <div class="top_container">
+                <div class="lvl_container">
+                    <p>LVL:</p>
+                    <p id="lvl">00</p>
+                </div>
+                <div class="top-score_container">
+                    <p>Top Score:</p>
+                    <p id="top-score">000000</p>
+                </div>
+                <div class="lines_container">
+                    <p>Lines:</p>
+                    <p id="lines">000</p>
+                </div>
+                <div class="score_container">
+                    <p>Score:</p>
+                    <p id="score">000000</p>
+                </div>
+                <div class="next_container">
+                    <p id="next_title">Next:</p>
+                    <div id="next_display">
+                        <div id="next_figure" class="">
+                            <div class="block one"></div>
+                            <div class="block two"></div>
+                            <div class="block three"></div>
+                            <div class="block four"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="display">
+            </div>
         </div>
-        <div>
-            <p>LVL:</p>
-            <p id="lvl">0</p>
+        
+        <div class="right_container"></div>
         </div>
-        <div>
-            <p>Score:</p>
-            <p id="score">0</p>
-        </div>
-        <div>
-            <p>TopScore:</p>
-            <p id="top-score">0</p>
-        </div>
-        <p>Type1:</p>
-        <div>
-            <p>Counter:</p>
-            <p id="type1-counter">0</p>
-            <p>Absent:</p>
-            <p id="type1-absent">0</p>
-        </div>
-        <p>Type2:</p>
-        <div>
-            <p>Counter:</p>
-            <p id="type2-counter">0</p>
-            <p>Absent:</p>
-            <p id="type2-absent">0</p>
-        </div>
-        <p>Type3:</p>
-        <div>
-            <p>Counter:</p>
-            <p id="type3-counter">0</p>
-            <p>Absent:</p>
-            <p id="type3-absent">0</p>
-        </div>
-        <p>Type4:</p>
-        <div>
-            <p>Counter:</p>
-            <p id="type4-counter">0</p>
-            <p>Absent:</p>
-            <p id="type4-absent">0</p>
-        </div>
-        <p>Type5:</p>
-        <div>
-            <p>Counter:</p>
-            <p id="type5-counter">0</p>
-            <p>Absent:</p>
-            <p id="type5-absent">0</p>
-        </div>
-        <p>Type6:</p>
-        <div>
-            <p>Counter:</p>
-            <p id="type6-counter">0</p>
-            <p>Absent:</p>
-            <p id="type6-absent">0</p>
-        </div>
-        <p>Type7:</p>
-        <div>
-            <p>Counter:</p>
-            <p id="type7-counter">0</p>
-            <p>Absent:</p>
-            <p id="type7-absent">0</p>
-        </div>     
-    </div>
-    <div id="display">
-    </div>
 </body>
 </html>

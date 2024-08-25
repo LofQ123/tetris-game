@@ -17,7 +17,6 @@ game = {
                             "y": y,
                             "value": "   ",
                             "color": "none",
-                            "change": " ",
                         }
                     }  
                 }                          
@@ -26,13 +25,17 @@ game = {
 
         let display = document.getElementById('display')
 
-        //Do not forget to delete
         for (let y = 19; y >= 0; y--) {
             for (let x = 0; x <= 9; x++) {
                 let cell = document.createElement('div');
                 cell.style["background-color"] = "transparent";
                 cell.id = `${y}-${x}`
-                cell.addEventListener("click", () => {game.debug.forceBlock(y, x, "[X]")})
+                cell.addEventListener("mouseover", () => {game.figure.slideToCell(x)})
+                cell.addEventListener("click", () => {game.figure.dropDown()})
+                cell.addEventListener("contextmenu", (event) => {
+                    event.preventDefault();
+                    game.figure.rotate();
+                })
                 display.appendChild(cell);
             }
         }
@@ -117,8 +120,8 @@ game = {
             4: "#f9c74f",
             5: "#90be6d",
             6: "#43aa8b",
-            7: "#577590",
-            8: "#9D9292",
+            7: "#3A75AD",
+            8: "#2D3B4E",
         },
 
         type: "",
@@ -219,6 +222,8 @@ game = {
                     game.figure.nextFigure = piece;
                 } else (game.figure.getNextFigure())
             }
+
+            document.getElementById("next_figure").classList = `type${game.figure.nextFigure}`
         },
 
         drawNextFigure(type) {
@@ -449,8 +454,7 @@ game = {
             };
         },
  
-        updateFigurePosition(str) {
-            console.log(str)
+        updateFigurePosition() {
             game.figure.resetCells();
  
             game.figure.placeShadow();
@@ -460,7 +464,6 @@ game = {
                 for (line in game.board) {
                     if (game.board[line][cellName]){
                         game.board[line][cellName].value = "[!]"
-                        game.board[line][cellName].change = "instant"
                     }
                 }
             };
@@ -471,7 +474,6 @@ game = {
                     if (game.board[line][cellName]){
                         game.board[line][cellName].value = "[?]"
                         game.board[line][cellName].color = game.figure.colors[`${game.figure.color}`] 
-                        game.board[line][cellName].change = ""
                     }
                 }
             };
@@ -559,13 +561,12 @@ game = {
         },
 
         moveDown() {
-            let change = "down"
             if (game.figure.canMoveDown()) {
                 for(block in game.figure.body) {
                     game.figure.body[block].y--;
                 };
                 game.figure.linesSkipped++
-                game.figure.updateFigurePosition(change);
+                game.figure.updateFigurePosition();
             }
         },
 
@@ -636,6 +637,54 @@ game = {
                 };
                 game.figure.updateFigurePosition();
             }
+        },
+
+        slideToCell(column){
+            function checkIfAlreadyThere() {
+                let alreadyThere = false;
+                for (block in game.figure.body) {
+                    if (game.figure.body[block].x === column) {
+                        alreadyThere = true;
+                    }
+                }
+                return alreadyThere;
+            }
+
+            function getDirection() {
+                let direction = "";
+                if (!checkIfAlreadyThere()) {
+                    if (game.figure.body[1].x > column) {
+                        direction = "left";
+                    } else direction = "right"
+                }
+                return direction;
+            }
+
+            function slideLeft() {
+                if (game.figure.canMoveLeft()) {
+                    setTimeout(() => {
+                        game.figure.moveLeft();
+                        slideLeft();
+                    }, 5 )
+                }
+            }
+
+            function slideRight() {
+                if (game.figure.canMoveRight()) {
+                    setTimeout(() => {
+                        game.figure.moveRight();
+                        slideRight();
+                    }, 5 )
+                }
+            }
+
+            if (!checkIfAlreadyThere()) {
+                if (getDirection() === "left") {
+                    game.figure.moveLeft();
+                } else if (getDirection() === "right") {
+                    game.figure.moveRight();
+                }
+            } else return
         },
 
         checkCollision() {
@@ -1379,15 +1428,6 @@ game = {
             }
         }, 300)
 
-        /* setTimeout(() => {
-            for (i = 0; i <= clearedLines.length - 1; i++) {
-                for (cell in game.board[`${clearedLines[i]}`]) {
-                    game.board[`${clearedLines[i]}`][cell].value = "[*]";
-                }
-            }
-            game.drawBoard()
-        }, 400) 
- */
         setTimeout(() => {
             for (i = 0; i <= clearedLines.length - 1; i++) {
                 for (cell in game.board[`${clearedLines[i]}`]) {
@@ -1663,11 +1703,12 @@ game = {
             let displayScore = document.getElementById("score");
             let displayTopScore = document.getElementById("top-score");
 
-            displayLines.innerText = game.stat.linesCleared;
-            displayLvl.innerText = game.stat.currentLvl;
-            displayScore.innerText = game.stat.score;
-            displayTopScore.innerText = game.stat.topScore;
+            displayLines.innerText = String(game.stat.linesCleared).padStart(3, "0");
+            displayLvl.innerText = String(game.stat.currentLvl).padStart(2, "0");
+            displayScore.innerText = String(game.stat.score).padStart(6, "0");
+            displayTopScore.innerText = String(game.stat.topScore).padStart(6, "0");
             
+            /*
             //update displayed figures stat
             let type1Counter = document.getElementById("type1-counter");
             let type1Absent = document.getElementById("type1-absent");
@@ -1697,7 +1738,7 @@ game = {
             type6Counter.innerText = game.stat.figures.type6.timesSpawned;
             type6Absent.innerText = game.stat.figures.type6.absent;
             type7Counter.innerText = game.stat.figures.type7.timesSpawned;
-            type7Absent.innerText = game.stat.figures.type7.absent;
+            type7Absent.innerText = game.stat.figures.type7.absent; */
         },
     },
     difficulty: "",
@@ -1779,7 +1820,6 @@ game = {
     }
 }
 
-
 document.body.addEventListener("keydown", (ev) => {
     if (ev.key === "ArrowLeft") {
         game.figure.moveLeft();
@@ -1798,7 +1838,6 @@ document.body.addEventListener("keydown", (ev) => {
         console.log(ev.key)
     }
 })
-
 
 game.selectDifficulty(1);
 game.newGame();

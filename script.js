@@ -1816,6 +1816,8 @@ game = {
         document.getElementById("display").innerHTML = "";
         game.board = {};
         game.stat.resetFigureCounters();
+        game.figure.currentLvl = 0;
+        game.figure.linesCleared = 0;
         game.newGame();
     },
 

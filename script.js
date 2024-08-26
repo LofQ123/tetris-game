@@ -1710,6 +1710,32 @@ game = {
             type6Counter.innerText = game.stat.figures.type6.timesSpawned;
             type7Counter.innerText = game.stat.figures.type7.timesSpawned;
         },
+
+        resetFigureCounters() {
+            game.stat.figures.type1.timesSpawned = 0;
+            game.stat.figures.type2.timesSpawned = 0;
+            game.stat.figures.type3.timesSpawned = 0;
+            game.stat.figures.type4.timesSpawned = 0;
+            game.stat.figures.type5.timesSpawned = 0;
+            game.stat.figures.type6.timesSpawned = 0;
+            game.stat.figures.type7.timesSpawned = 0;
+
+            let type1Counter = document.getElementById("type1-counter");
+            let type2Counter = document.getElementById("type2-counter");
+            let type3Counter = document.getElementById("type3-counter");
+            let type4Counter = document.getElementById("type4-counter");
+            let type5Counter = document.getElementById("type5-counter");
+            let type6Counter = document.getElementById("type6-counter");
+            let type7Counter = document.getElementById("type7-counter");
+
+            type1Counter.innerText = game.stat.figures.type1.timesSpawned;
+            type2Counter.innerText = game.stat.figures.type2.timesSpawned;
+            type3Counter.innerText = game.stat.figures.type3.timesSpawned;
+            type4Counter.innerText = game.stat.figures.type4.timesSpawned;
+            type5Counter.innerText = game.stat.figures.type5.timesSpawned;
+            type6Counter.innerText = game.stat.figures.type6.timesSpawned;
+            type7Counter.innerText = game.stat.figures.type7.timesSpawned;
+        }
     },
     difficulty: "",
 
@@ -1740,7 +1766,57 @@ game = {
     },
 
     pauseShowControls() {
+        document.getElementById("statistic").style.display = "none";
+        document.getElementById("pause_controls").style.display = "block";
+        document.getElementById("button_pauseControls").style.display = "none";
+        document.getElementById("button_pauseStatistic").style.display = "block";
+    },
 
+    pauseShowStatistic() {
+        document.getElementById("statistic").style.display = "block";
+        document.getElementById("pause_controls").style.display = "none";
+        document.getElementById("button_pauseControls").style.display = "block";
+        document.getElementById("button_pauseStatistic").style.display = "none";
+    },
+
+    mainShowControls() {
+
+    },
+
+    mainBackFromControls() {
+        
+    },
+
+    showMainMenu() {
+        document.getElementById("main_menu").classList = "shown";
+        setTimeout(() => {
+            document.getElementById("button_play").classList = "shown";
+            document.getElementById("button_mainControls").classList = "shown"
+        }, 2000)
+    },
+    
+    toDifficultyScreen() {
+        document.getElementById("button_play").classList = "moved"
+        document.getElementById("button_mainControls").classList = "moved"
+
+        setTimeout(() => {
+            document.getElementById("chooseDifficulty").classList = "shown"
+        }, 500)
+    },
+
+    start(difficulty) {
+        game.selectDifficulty(difficulty);
+        document.getElementById("main_menu").style.display = "none";
+        game.newGame();
+    },
+
+    startAgain() {
+        document.getElementById("game_over").style.display = "none";
+        game.stat.score = 0;
+        document.getElementById("display").innerHTML = "";
+        game.board = {};
+        game.stat.resetFigureCounters();
+        game.newGame();
     },
 
     gameOver() {
@@ -1748,6 +1824,9 @@ game = {
         if (game.stat.score > game.stat.topScore) {
             game.stat.topScore = game.stat.score;
         }
+        document.getElementById("game_over").style.display = "flex";
+        document.getElementById("game_overScore").innerText = `Score: ${game.stat.score}`
+        document.getElementById("game_overTopScore").innerText = `TopScore: ${game.stat.topScore}`
         console.log(`GAME OVER`)
     },
 
@@ -1844,7 +1923,20 @@ document.getElementById("button_rotate").addEventListener("click", () => {game.f
 document.getElementById("button_drop").addEventListener("click", () => {game.figure.dropDown()});
 document.getElementById("button_right").addEventListener("click", () => {game.figure.moveRight()});
 document.getElementById("button_unpause").addEventListener("click", () => {game.unpause()});
+document.getElementById("button_pauseControls").addEventListener("click", () => {game.pauseShowControls()});
+document.getElementById("button_pauseStatistic").addEventListener("click", () => {game.pauseShowStatistic()});
+document.getElementById("button_mainControls").addEventListener("click", () => {game.mainShowControls()});
+document.getElementById("button_mainControlsBack").addEventListener("click", () => {game.mainBackFromControls()});
+document.getElementById("button_play").addEventListener("click", () => {game.toDifficultyScreen()});
+document.getElementById("button_startNormal").addEventListener("click", () => {game.start(1)});
+document.getElementById("button_startHard").addEventListener("click", () => {game.start(2)});
+document.getElementById("button_playAgain").addEventListener("click", () => {game.startAgain()})
+
+
+
 
 game.selectDifficulty(1);
-game.newGame();
-game.pause();
+//game.newGame();
+//game.pause();
+
+game.showMainMenu();

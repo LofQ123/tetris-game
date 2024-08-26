@@ -13,7 +13,7 @@
 </head>
 <body>                
     <div class="main_container">
-        <div class="middle_container">
+        <div class="middle_container" id="middle_container">
             <div class="top_container">
                 <div class="lvl_container">
                     <p>LVL:</p>
@@ -73,17 +73,17 @@
             </div>
             <div class="options">
                 <div class="option">
-                    <p id="button_unpause">Resume</p>
+                    <p class="clickable" id="button_unpause">Resume</p>
                 </div>
                 <div class="option">
-                    <p id="button_quit">Show controls</p>
+                    <p class="clickable" id="button_pauseControls">Show controls</p>
                 </div>
                 <div class="option">
-                    <p id="button_quit">Quit to main menu</p>
+                    <p class="clickable" id="button_pauseStatistic">Show statistic</p>
                 </div>
             </div>
-            <div class="statistic">
-                <p>Statictic:</p>
+            <div class="statistic" id="statistic">
+                <p>Statistic:</p>
                 <div class="container">
                     <div class="line">
                         <div>
@@ -171,9 +171,62 @@
                     </div>
                 </div>
             </div>
+            <div class="pause_controls" id="pause_controls">
+                <p>Controls:</p>
+                <div class="container">
+                    <p>Move Left:</p>
+                    <p>ArrowLeft</p>
+                    <p>Move Right:</p>
+                    <p>ArrowRight</p>
+                    <p>Move Down:</p>
+                    <p>ArrowDown</p>
+                    <p>Drop Down:</p>
+                    <p>Space, LMB</p>
+                    <p>Rotate:</p>
+                    <p>ArrowUp, RMB</p>
+                </div>
+            </div>
         </div>
         <div id="countdown" class="shadowed">
             <p id="countdown_number"></p>
+        </div>
+        <div id="main_menu" class="hidden">
+            <h1 id="logo" class="shown">TETRIS</h1>
+            <div class="options hidden" id="mainOptions">
+                <p id="button_play">Play</p>
+                <p id="button_mainControls">Controls</p>
+                <div id="container_controls">
+                    <p>Move Left:</p>
+                    <p>ArrowLeft</p>
+                    <p>Move Right:</p>
+                    <p>ArrowRight</p>
+                    <p>Move Down:</p>
+                    <p>ArrowDown</p>
+                    <p>Drop Down:</p>
+                    <p>Space, LMB</p>
+                    <p>Rotate:</p>
+                    <p>ArrowUp, RMB</p>
+                    <p id="button_mainControlsBack">Back</p>
+                </div>
+                <div id="chooseDifficulty" class="hidden">
+                    <p>Choose difficulty:</p>
+                    <p id="button_startNormal">Normal</p>
+                    <p id="button_startHard">Hard</p>
+                </div>
+            </div>
+            <div class="credit">
+                <p class="textSmall">Ruslan Alexeev</p>
+                <p>(alexrus5495@gmail.com)</p>
+                <div>
+                    <a href="https://github.com/LofQ123" target="_blank" rel="noopener noreferrer"><img src="github-mark-white.png" alt="gitHub logo"></a>
+                </div>
+            </div>
+        </div>
+        <div id="game_over" class="shadowed">
+            <p class="title">GAME OVER</p>
+            <p id="game_overScore">Score:</p>
+            <p id="game_overTopScore">Top score:</p>
+            <p id="button_playAgain" class="title">Play again</p>
         </div>
     </div>
 </body>
